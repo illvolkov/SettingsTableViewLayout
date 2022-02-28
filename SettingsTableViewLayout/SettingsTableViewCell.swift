@@ -14,12 +14,12 @@ struct SettingsOption: Settings {
 }
 
 class SettingsTableViewCell: UITableViewCell {
-    static let identifier = "SettingsTableViewCell"
+    static let identifier = Strings.settingsCellIdentifier
     
     private lazy var nameLabel: UILabel = {
         let nameLabel = UILabel()
         
-        nameLabel.font = .systemFont(ofSize: 17)
+        nameLabel.font = .systemFont(ofSize: Sizes.nameLabelFontSize)
         nameLabel.adjustsFontSizeToFitWidth = true
         
         return nameLabel
@@ -42,14 +42,20 @@ class SettingsTableViewCell: UITableViewCell {
         accessoryType = .disclosureIndicator
         
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
-        nameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 11.5).isActive = true
-        nameLabel.leftAnchor.constraint(equalTo: iconSettings.rightAnchor, constant: 14.5).isActive = true
-        nameLabel.heightAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.06).isActive = true
+        nameLabel.topAnchor.constraint(equalTo: contentView.topAnchor,
+                                       constant: Offsets.nameLabelTopOffset).isActive = true
+        nameLabel.leftAnchor.constraint(equalTo: iconSettings.rightAnchor,
+                                        constant: Offsets.nameLabelLeftOffset).isActive = true
+        nameLabel.heightAnchor.constraint(equalTo: contentView.widthAnchor,
+                                          multiplier: Sizes.nameLabelHeightMultiplier).isActive = true
         
         iconSettings.translatesAutoresizingMaskIntoConstraints = false
-        iconSettings.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 7.5).isActive = true
-        iconSettings.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 14).isActive = true
-        iconSettings.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.09).isActive = true
+        iconSettings.topAnchor.constraint(equalTo: contentView.topAnchor,
+                                          constant: Offsets.iconSettingsTopOffset).isActive = true
+        iconSettings.leftAnchor.constraint(equalTo: contentView.leftAnchor,
+                                           constant: Offsets.iconSettingsLeftOffset).isActive = true
+        iconSettings.widthAnchor.constraint(equalTo: contentView.widthAnchor,
+                                            multiplier: Sizes.iconSettingsWidthMultiplier).isActive = true
         iconSettings.heightAnchor.constraint(equalTo: iconSettings.widthAnchor).isActive = true
     }
     
@@ -62,4 +68,23 @@ class SettingsTableViewCell: UITableViewCell {
         iconSettings.image = model.icon
     }
 
+}
+
+extension SettingsTableViewCell {
+    enum Strings {
+        static let settingsCellIdentifier: String = "SettingsTableViewCell"
+    }
+    
+    enum Sizes {
+        static let nameLabelFontSize: CGFloat = 17
+        static let nameLabelHeightMultiplier: CGFloat = 0.06
+        static let iconSettingsWidthMultiplier: CGFloat = 0.09
+    }
+    
+    enum Offsets {
+        static let nameLabelTopOffset: CGFloat = 11.5
+        static let nameLabelLeftOffset: CGFloat = 14.5
+        static let iconSettingsTopOffset: CGFloat = 7.5
+        static let iconSettingsLeftOffset: CGFloat = 14
+    }
 }
