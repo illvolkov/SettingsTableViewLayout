@@ -12,7 +12,15 @@ protocol Settings {
     var handler: (() -> Void) { get }
 }
 
-class ViewController: UIViewController {
+struct Section {
+    let options: [SettingsOptionType]
+}
+
+enum SettingsOptionType {
+    case profileCell(model: SettingsProfileOption)
+}
+
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     //MARK: - Views
     
@@ -29,8 +37,12 @@ class ViewController: UIViewController {
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: view.frame, style: .insetGrouped)
         
+        tableView.register(ProfileTableViewCell.self, forCellReuseIdentifier: ProfileTableViewCell.identifier)
+        
         return tableView
     }()
+    
+    var models = [Section]()
 
     //MARK: - Lifecycle
     
@@ -41,6 +53,10 @@ class ViewController: UIViewController {
         setupLayout()
         setupView()
         
+        tableView.delegate = self
+        tableView.dataSource = self
+        
+        configure()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -86,10 +102,39 @@ class ViewController: UIViewController {
         appearance.shadowColor = UIColor(rgb: 0xF2F1F7)
         navigationController?.navigationBar.standardAppearance = appearance
         navigationController?.navigationBar.scrollEdgeAppearance = appearance
-        
     }
-
-
+    
+    private func configure() {
+        models.append(Section(options: [
+            .profileCell(model: SettingsProfileOption(name: "Илья Волков",
+                                                      detailedTitle: "Apple ID, iCloud, контент и покупки",
+                                                      profileImage: (UIImage(named: "profile.image") ?? UIImage()),
+                                                      handler: { print("Нажата ячейка Профиль") }))]))
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        models.count
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        models[section].options.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let model = models[indexPath.section].options[indexPath.row]
+        
+        switch model {
+        case .profileCell(let model):
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: ProfileTableViewCell.identifier,
+                for: indexPath
+            ) as? ProfileTableViewCell else {
+                return UITableViewCell()
+            }
+            cell.configure(with: model)
+            return cell
+        }
+    }
 }
 
 extension UIColor {
