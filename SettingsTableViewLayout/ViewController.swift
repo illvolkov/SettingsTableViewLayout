@@ -13,10 +13,17 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        setupHiearchy()
+        setupLayout()
+        setupView()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        setUpNavigationBar()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -29,11 +36,25 @@ class ViewController: UIViewController {
         
     }
     
-    private func setupLayput() {
+    private func setupLayout() {
         
     }
     
     private func setupView() {
+        view.backgroundColor = .white
+    }
+    
+    //MARK: - Functions
+
+    private func setUpNavigationBar() {
+        navigationItem.title = "Настройки"
+        navigationController?.navigationBar.prefersLargeTitles = true
+        
+        let appearance = UINavigationBarAppearance()
+        appearance.backgroundColor = UIColor(rgb: 0xF2F1F7)
+        appearance.shadowColor = UIColor(rgb: 0xF2F1F7)
+        navigationController?.navigationBar.standardAppearance = appearance
+        navigationController?.navigationBar.scrollEdgeAppearance = appearance
         
     }
 
