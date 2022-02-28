@@ -7,6 +7,11 @@
 
 import UIKit
 
+protocol Settings {
+    var name: String { get }
+    var handler: (() -> Void) { get }
+}
+
 class ViewController: UIViewController {
     
     //MARK: - Views
