@@ -19,6 +19,7 @@ struct Section {
 enum SettingsOptionType {
     case profileCell(model: SettingsProfileOption)
     case airplaneCell(model: SettingsAirplaneOption)
+    case networkCell(model: SettingsNetworkOption)
 }
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
@@ -40,6 +41,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         tableView.register(ProfileTableViewCell.self, forCellReuseIdentifier: ProfileTableViewCell.identifier)
         tableView.register(AirplaneTableViewCell.self, forCellReuseIdentifier: AirplaneTableViewCell.identifier)
+        tableView.register(NetworkTableViewCell.self, forCellReuseIdentifier: NetworkTableViewCell.identifier)
         
         return tableView
     }()
@@ -116,7 +118,19 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         models.append(Section(options: [
             .airplaneCell(model: SettingsAirplaneOption(name: "Авиарежим",
                                                       icon: UIImage(named: "airplane.mode") ?? UIImage(),
-                                                      handler: { print("Нажата ячейка Авиарежим") }))]))
+                                                      handler: { print("Нажата ячейка Авиарежим") })),
+            .networkCell(model: SettingsNetworkOption(name: "Wi-Fi",
+                                                      icon: UIImage(named: "wifi") ?? UIImage(),
+                                                      informer: "Не подключено",
+                                                      handler: { print("Нажата ячейка Wi-Fi") })),
+            .networkCell(model: SettingsNetworkOption(name: "Bluetooth",
+                                                      icon: UIImage(named: "bluetooth") ?? UIImage(),
+                                                      informer: "Выкл.",
+                                                      handler: { print("Нажата ячейка Bluetooth") })),
+            .networkCell(model: SettingsNetworkOption(name: "VPN",
+                                                      icon: UIImage(named: "vpn") ?? UIImage(),
+                                                      informer: "Не подключено",
+                                                      handler: { print("Нажата ячейка VPN") }))]))
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -144,6 +158,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             guard let cell = tableView.dequeueReusableCell(
                 withIdentifier: AirplaneTableViewCell.identifier,
                 for: indexPath) as? AirplaneTableViewCell else {
+                return UITableViewCell()
+            }
+            cell.configure(with: model)
+            return cell
+        case .networkCell(let model):
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: NetworkTableViewCell.identifier,
+                for: indexPath) as? NetworkTableViewCell else {
                 return UITableViewCell()
             }
             cell.configure(with: model)
