@@ -18,6 +18,7 @@ struct Section {
 
 enum SettingsOptionType {
     case profileCell(model: SettingsProfileOption)
+    case airplaneCell(model: SettingsAirplaneOption)
 }
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
@@ -38,6 +39,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let tableView = UITableView(frame: view.frame, style: .insetGrouped)
         
         tableView.register(ProfileTableViewCell.self, forCellReuseIdentifier: ProfileTableViewCell.identifier)
+        tableView.register(AirplaneTableViewCell.self, forCellReuseIdentifier: AirplaneTableViewCell.identifier)
         
         return tableView
     }()
@@ -110,6 +112,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                                                       detailedTitle: "Apple ID, iCloud, контент и покупки",
                                                       profileImage: (UIImage(named: "profile.image") ?? UIImage()),
                                                       handler: { print("Нажата ячейка Профиль") }))]))
+        
+        models.append(Section(options: [
+            .airplaneCell(model: SettingsAirplaneOption(name: "Авиарежим",
+                                                      icon: UIImage(named: "airplane.mode") ?? UIImage(),
+                                                      handler: { print("Нажата ячейка Авиарежим") }))]))
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -129,6 +136,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 withIdentifier: ProfileTableViewCell.identifier,
                 for: indexPath
             ) as? ProfileTableViewCell else {
+                return UITableViewCell()
+            }
+            cell.configure(with: model)
+            return cell
+        case .airplaneCell(let model):
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: AirplaneTableViewCell.identifier,
+                for: indexPath) as? AirplaneTableViewCell else {
                 return UITableViewCell()
             }
             cell.configure(with: model)
