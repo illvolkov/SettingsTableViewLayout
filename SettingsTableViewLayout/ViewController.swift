@@ -20,6 +20,12 @@ class ViewController: UIViewController {
         
         return searchView
     }()
+    
+    private lazy var tableView: UITableView = {
+        let tableView = UITableView(frame: view.frame, style: .insetGrouped)
+        
+        return tableView
+    }()
 
     //MARK: - Lifecycle
     
@@ -36,23 +42,27 @@ class ViewController: UIViewController {
         super.viewWillAppear(animated)
         
         setUpNavigationBar()
-        navigationItem.hidesSearchBarWhenScrolling = true
+        navigationItem.hidesSearchBarWhenScrolling = false
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        navigationItem.hidesSearchBarWhenScrolling = false
+        navigationItem.hidesSearchBarWhenScrolling = true
     }
     
     //MARK: - Settings
     
     private func setupHiearchy() {
-        
+        view.addSubview(tableView)
     }
     
     private func setupLayout() {
-        
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        tableView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor).isActive = true
+        tableView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor).isActive = true
+        tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
     }
     
     private func setupView() {
