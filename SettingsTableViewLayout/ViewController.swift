@@ -7,15 +7,18 @@
 
 import UIKit
 
+//Интерфейс для конфигурации ячеек
 protocol Settings {
     var name: String { get }
     var handler: (() -> Void) { get }
 }
 
+//Секция с типами ячеек
 struct Section {
     let options: [SettingsOptionType]
 }
 
+//Типы ячеек
 enum SettingsOptionType {
     case profileCell(model: SettingsProfileOption)
     case airplaneCell(model: SettingsAirplaneOption)
@@ -27,6 +30,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     //MARK: - Views
     
+    //Создание строки поиска
     private lazy var searchView: UISearchController = {
         let searchView = UISearchController(searchResultsController: nil)
         
@@ -37,6 +41,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         return searchView
     }()
     
+    //Создание таблицы
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: view.frame, style: .insetGrouped)
         
@@ -49,6 +54,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         return tableView
     }()
     
+    //Здесь хранятся ячейки разбитые по секциям
     var models = [Section]()
 
     //MARK: - Lifecycle
@@ -99,6 +105,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     //MARK: - Functions
 
+    //Конфигурация navigation bar
     private func setUpNavigationBar() {
         navigationItem.title = "Настройки"
         navigationItem.searchController = searchView
@@ -111,6 +118,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         navigationController?.navigationBar.scrollEdgeAppearance = appearance
     }
     
+    //Функция добавления ячеек в таблицу
     private func configure() {
         models.append(Section(options: [
             .profileCell(model: SettingsProfileOption(name: "Илья Волков",
@@ -288,14 +296,17 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                                                 handler: { print("Нажата ячейка Game Center") }))]))
     }
     
+    //Количество секций
     func numberOfSections(in tableView: UITableView) -> Int {
         models.count
     }
     
+    //Количество ячеек в секции
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         models[section].options.count
     }
     
+    //Переопределение ячеек к кастомным
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let model = models[indexPath.section].options[indexPath.row]
         

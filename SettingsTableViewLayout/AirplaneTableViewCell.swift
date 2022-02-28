@@ -25,6 +25,7 @@ class AirplaneTableViewCell: UITableViewCell {
         return nameLabel
     }()
     
+    //Иконка ячейки
     private lazy var iconAirplane: UIImageView = {
         let icon = UIImageView()
         
@@ -34,6 +35,7 @@ class AirplaneTableViewCell: UITableViewCell {
         return icon
     }()
     
+    //Селектор переключения режима
     private lazy var switchAirplane: UISwitch = {
         let switchAirplane = UISwitch()
         return switchAirplane

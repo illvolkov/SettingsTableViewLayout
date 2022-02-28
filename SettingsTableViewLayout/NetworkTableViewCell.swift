@@ -36,6 +36,7 @@ class NetworkTableViewCell: UITableViewCell {
         return iconNetwork
     }()
     
+    //Информация о состоянии сети
     private lazy var informerLabel: UILabel = {
         let informerLabel = UILabel()
         

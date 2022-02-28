@@ -7,6 +7,7 @@
 
 import UIKit
 
+//Конфигурация ячеек
 struct SettingsProfileOption: Settings {
     let name: String
     let detailedTitle: String
@@ -17,6 +18,7 @@ struct SettingsProfileOption: Settings {
 class ProfileTableViewCell: UITableViewCell {
     static let identifier = "ProfileTableViewCell"
     
+    //Имя профиля
     private lazy var nameLabel: UILabel = {
         let nameLabel = UILabel()
         
@@ -27,6 +29,7 @@ class ProfileTableViewCell: UITableViewCell {
         return nameLabel
     }()
     
+    //Описание того что находится в настройках профиля
     private lazy var detailedLabel: UILabel = {
         let detailedLabel = UILabel()
         
@@ -36,6 +39,7 @@ class ProfileTableViewCell: UITableViewCell {
         return detailedLabel
     }()
     
+    //Картинка профиля
     private lazy var profileImage: UIImageView = {
         let profileImage = UIImageView()
         
@@ -48,6 +52,7 @@ class ProfileTableViewCell: UITableViewCell {
         return profileImage
     }()
     
+    //Добавление вью в ячейку и установка ограничений
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -79,6 +84,7 @@ class ProfileTableViewCell: UITableViewCell {
         super.init(coder: coder)
     }
     
+    //Присваивание значений свойств к вью
     func configure(with model: SettingsProfileOption) {
         nameLabel.text = model.name
         detailedLabel.text = model.detailedTitle
