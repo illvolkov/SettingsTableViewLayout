@@ -140,10 +140,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                                                       handler: { print("Нажата ячейка Bluetooth") })),
             .settingsCell(model: SettingsOption(name: Strings.cellularCellTitle,
                                                 icon: UIImage(named: Icons.cellularIcon) ?? UIImage(),
-                                                handler: { print("Нажата ячейка сотовая связь") })),
+                                                handler: { print("Нажата ячейка Сотовая связь") })),
             .settingsCell(model: SettingsOption(name: Strings.modemCellTitle,
                                                 icon: UIImage(named: Icons.modemIcon) ?? UIImage(),
-                                                handler: { print("Нажата ячейка режим модема") })),
+                                                handler: { print("Нажата ячейка Режим модема") })),
             .networkCell(model: SettingsNetworkOption(name: Strings.vpnCellTitle,
                                                       icon: UIImage(named: Icons.vpnIcon) ?? UIImage(),
                                                       informer: Strings.informerTitleNotConnected,
@@ -152,22 +152,22 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         models.append(Section(options: [
             .settingsCell(model: SettingsOption(name: Strings.notificationsCellTitle,
                                                 icon: UIImage(named: Icons.notificationsIcon) ?? UIImage(),
-                                                handler: { print("Нажата ячейка уведомления") })),
+                                                handler: { print("Нажата ячейка Уведомления") })),
             .settingsCell(model: SettingsOption(name: Strings.soundsCellTitle,
                                                 icon: UIImage(named: Icons.soundsIcon) ?? UIImage(),
-                                                handler: { print("Нажата ячейка звуки") })),
+                                                handler: { print("Нажата ячейка Звуки") })),
             .settingsCell(model: SettingsOption(name: Strings.focusCellTitle,
                                                 icon: UIImage(named: Icons.focusIcon) ?? UIImage(),
-                                                handler: { print("Нажата ячейка фокусирование") })),
+                                                handler: { print("Нажата ячейка Фокусирование") })),
             .settingsCell(model: SettingsOption(name: Strings.screenTimeCellTitle,
                                                 icon: UIImage(named: Icons.screenTimeIcon) ?? UIImage(),
-                                                handler: { print("Нажата ячейка экранное время") }))
+                                                handler: { print("Нажата ячейка Экранное время") }))
         ]))
         
         models.append(Section(options: [
             .settingsCell(model: SettingsOption(name: Strings.mainCellTitle,
                                                 icon: UIImage(named: Icons.mainIcon) ?? UIImage(),
-                                                handler: { print("Нажата ячейка Настройки") })),
+                                                handler: { print("Нажата ячейка Основные") })),
             .settingsCell(model: SettingsOption(name: Strings.commandCenterCellTitle,
                                                 icon: UIImage(named: Icons.commandCenterIcon) ?? UIImage(),
                                                 handler: { print("Нажата ячейка Пункт управления") })),
@@ -344,6 +344,23 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 }
             cell.configure(with: model)
             return cell
+        }
+    }
+    
+    //Нажатие на ячейку
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let type = models[indexPath.section].options[indexPath.row]
+        
+        switch type {
+        case .profileCell(let model):
+            model.handler()
+        case .airplaneCell(let model):
+            model.handler()
+        case .networkCell(let model):
+            model.handler()
+        case .settingsCell(let model):
+            model.handler()
         }
     }
 }
