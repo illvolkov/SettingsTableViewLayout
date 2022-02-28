@@ -8,6 +8,18 @@
 import UIKit
 
 class ViewController: UIViewController {
+    
+    //MARK: - Views
+    
+    private lazy var searchView: UISearchController = {
+        let searchView = UISearchController(searchResultsController: nil)
+        
+        searchView.searchBar.tintColor = .systemBlue
+        searchView.searchBar.placeholder = "Поиск"
+        searchView.searchBar.setValue("Отменить", forKey: "cancelButtonText")
+        
+        return searchView
+    }()
 
     //MARK: - Lifecycle
     
@@ -24,10 +36,13 @@ class ViewController: UIViewController {
         super.viewWillAppear(animated)
         
         setUpNavigationBar()
+        navigationItem.hidesSearchBarWhenScrolling = true
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
+        navigationItem.hidesSearchBarWhenScrolling = false
     }
     
     //MARK: - Settings
@@ -48,6 +63,7 @@ class ViewController: UIViewController {
 
     private func setUpNavigationBar() {
         navigationItem.title = "Настройки"
+        navigationItem.searchController = searchView
         navigationController?.navigationBar.prefersLargeTitles = true
         
         let appearance = UINavigationBarAppearance()
