@@ -16,12 +16,12 @@ struct SettingsNetworkOption: Settings {
 }
 
 class NetworkTableViewCell: UITableViewCell {
-    static let identifier = "NetworkTableViewCell"
+    static let identifier = Strings.networkCellIdentifier
 
     private lazy var nameLabel: UILabel = {
         let nameLabel = UILabel()
         
-        nameLabel.font = .systemFont(ofSize: 17)
+        nameLabel.font = .systemFont(ofSize: Sizes.labelFontSize)
         nameLabel.adjustsFontSizeToFitWidth = true
         
         return nameLabel
@@ -36,12 +36,13 @@ class NetworkTableViewCell: UITableViewCell {
         return iconNetwork
     }()
     
+    //Информация о состоянии сети
     private lazy var informerLabel: UILabel = {
         let informerLabel = UILabel()
         
-        informerLabel.font = .systemFont(ofSize: 17)
+        informerLabel.font = .systemFont(ofSize: Sizes.labelFontSize)
         informerLabel.adjustsFontSizeToFitWidth = true
-        informerLabel.alpha = 0.6
+        informerLabel.alpha = Display.informerLabelAlpha
         informerLabel.textAlignment = .right
         
         return informerLabel
@@ -56,20 +57,29 @@ class NetworkTableViewCell: UITableViewCell {
         accessoryType = .disclosureIndicator
         
         iconNetwork.translatesAutoresizingMaskIntoConstraints = false
-        iconNetwork.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 7.5).isActive = true
-        iconNetwork.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 14).isActive = true
-        iconNetwork.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.09).isActive = true
+        iconNetwork.topAnchor.constraint(equalTo: contentView.topAnchor,
+                                         constant: Offsets.iconNetworkTopOffset).isActive = true
+        iconNetwork.leftAnchor.constraint(equalTo: contentView.leftAnchor,
+                                          constant: Offsets.iconNetworkLeftOffset).isActive = true
+        iconNetwork.widthAnchor.constraint(equalTo: contentView.widthAnchor,
+                                           multiplier: Sizes.iconNetworkWidthMultiplier).isActive = true
         iconNetwork.heightAnchor.constraint(equalTo: iconNetwork.widthAnchor).isActive = true
         
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
-        nameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 11.5).isActive = true
-        nameLabel.leftAnchor.constraint(equalTo: iconNetwork.rightAnchor, constant: 14.5).isActive = true
-        nameLabel.heightAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.06).isActive = true
+        nameLabel.topAnchor.constraint(equalTo: contentView.topAnchor,
+                                       constant: Offsets.labelTopOffset).isActive = true
+        nameLabel.leftAnchor.constraint(equalTo: iconNetwork.rightAnchor,
+                                        constant: Offsets.nameLabelLeftOffset).isActive = true
+        nameLabel.heightAnchor.constraint(equalTo: contentView.widthAnchor,
+                                          multiplier: Sizes.nameLabelHeightMultiplier).isActive = true
         
         informerLabel.translatesAutoresizingMaskIntoConstraints = false
-        informerLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 11.5).isActive = true
-        informerLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -7).isActive = true
-        informerLabel.heightAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.06).isActive = true
+        informerLabel.topAnchor.constraint(equalTo: contentView.topAnchor,
+                                           constant: Offsets.labelTopOffset).isActive = true
+        informerLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor,
+                                             constant: Offsets.informerLabelRightOffset).isActive = true
+        informerLabel.heightAnchor.constraint(equalTo: contentView.widthAnchor,
+                                              multiplier: Sizes.informerLabelHeightMultiplier).isActive = true
     }
     
     required init?(coder: NSCoder) {
@@ -82,4 +92,29 @@ class NetworkTableViewCell: UITableViewCell {
         informerLabel.text = model.informer
     }
 
+}
+
+extension NetworkTableViewCell {
+    enum Strings {
+        static let networkCellIdentifier: String = "NetworkTableViewCell"
+    }
+    
+    enum Sizes {
+        static let labelFontSize: CGFloat = 17
+        static let iconNetworkWidthMultiplier: CGFloat = 0.09
+        static let nameLabelHeightMultiplier: CGFloat = 0.06
+        static let informerLabelHeightMultiplier: CGFloat = 0.06
+    }
+    
+    enum Offsets {
+        static let iconNetworkTopOffset: CGFloat = 7.5
+        static let iconNetworkLeftOffset: CGFloat = 14
+        static let labelTopOffset: CGFloat = 11.5
+        static let nameLabelLeftOffset: CGFloat = 14.5
+        static let informerLabelRightOffset: CGFloat = -7
+    }
+    
+    enum Display {
+        static let informerLabelAlpha: CGFloat = 0.6
+    }
 }
