@@ -21,8 +21,8 @@ struct Section {
 //Типы ячеек
 enum SettingsOptionType {
     case profileCell(model: SettingsProfileOption)
-    case airplaneCell(model: SettingsAirplaneOption)
-    case networkCell(model: SettingsNetworkOption)
+    case switchCell(model: SettingsSwitchOption)
+    case additionalLabelCell(model: SettingsAdditionalLabelOption)
     case settingsCell(model: SettingsOption)
 }
 
@@ -46,8 +46,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let tableView = UITableView(frame: view.frame, style: .insetGrouped)
         
         tableView.register(ProfileTableViewCell.self, forCellReuseIdentifier: ProfileTableViewCell.identifier)
-        tableView.register(AirplaneTableViewCell.self, forCellReuseIdentifier: AirplaneTableViewCell.identifier)
-        tableView.register(NetworkTableViewCell.self, forCellReuseIdentifier: NetworkTableViewCell.identifier)
+        tableView.register(SwitchTableViewCell.self, forCellReuseIdentifier: SwitchTableViewCell.identifier)
+        tableView.register(AdditionalLabelTableViewCell.self, forCellReuseIdentifier: AdditionalLabelTableViewCell.identifier)
         tableView.register(SettingsTableViewCell.self, forCellReuseIdentifier: SettingsTableViewCell.identifier)
         
         
@@ -123,177 +123,186 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         models.append(Section(options: [
             .profileCell(model: SettingsProfileOption(name: Strings.profileName,
                                                       detailedTitle: Strings.profileDetailedTitle,
-                                                      profileImage: (UIImage(named: Icons.profileIcon) ?? UIImage()),
-                                                      handler: { print("Нажата ячейка Профиль") }))]))
+                                                      profileImage: UIImage(named: Icons.profileIcon),
+                                                      handler: { print("Нажата ячейка Профиль") }))
+        ]))
         
         models.append(Section(options: [
-            .airplaneCell(model: SettingsAirplaneOption(name: Strings.airplaneCellTitle,
-                                                        icon: UIImage(named: Icons.airplaneIcon) ?? UIImage(),
-                                                      handler: { print("Нажата ячейка Авиарежим") })),
-            .networkCell(model: SettingsNetworkOption(name: Strings.wifiCellTitle,
-                                                      icon: UIImage(named: Icons.wifiIcon) ?? UIImage(),
-                                                      informer: Strings.informerTitleNotConnected,
-                                                      handler: { print("Нажата ячейка Wi-Fi") })),
-            .networkCell(model: SettingsNetworkOption(name: Strings.bluetoothCellTitle,
-                                                      icon: UIImage(named: Icons.bluetoothIcon) ?? UIImage(),
-                                                      informer: Strings.bluetoothInformerTitle,
-                                                      handler: { print("Нажата ячейка Bluetooth") })),
+            .switchCell(model: SettingsSwitchOption(name: Strings.airplaneCellTitle,
+                                                    icon: UIImage(named: Icons.airplaneIcon),
+                                                    handler: { print("Нажата ячейка Авиарежим") })),
+            .additionalLabelCell(model: SettingsAdditionalLabelOption(name: Strings.wifiCellTitle,
+                                                                      icon: UIImage(named: Icons.wifiIcon),
+                                                                      informer: Strings.informerTitleNotConnected,
+                                                                      handler: { print("Нажата ячейка Wi-Fi") },
+                                                                      indicatorBadge: nil,
+                                                                      isAdditionalLabelDefault: true)),
+            .additionalLabelCell(model: SettingsAdditionalLabelOption(name: Strings.bluetoothCellTitle,
+                                                                      icon: UIImage(named: Icons.bluetoothIcon),
+                                                                      informer: Strings.bluetoothInformerTitle,
+                                                                      handler: { print("Нажата ячейка Bluetooth") },
+                                                                      indicatorBadge: nil,
+                                                                      isAdditionalLabelDefault: true)),
             .settingsCell(model: SettingsOption(name: Strings.cellularCellTitle,
-                                                icon: UIImage(named: Icons.cellularIcon) ?? UIImage(),
+                                                icon: UIImage(named: Icons.cellularIcon),
                                                 handler: { print("Нажата ячейка Сотовая связь") })),
             .settingsCell(model: SettingsOption(name: Strings.modemCellTitle,
-                                                icon: UIImage(named: Icons.modemIcon) ?? UIImage(),
+                                                icon: UIImage(named: Icons.modemIcon),
                                                 handler: { print("Нажата ячейка Режим модема") })),
-            .networkCell(model: SettingsNetworkOption(name: Strings.vpnCellTitle,
-                                                      icon: UIImage(named: Icons.vpnIcon) ?? UIImage(),
-                                                      informer: Strings.informerTitleNotConnected,
-                                                      handler: { print("Нажата ячейка VPN") }))]))
+            .switchCell(model: SettingsSwitchOption(name: Strings.vpnCellTitle,
+                                                    icon: UIImage(named: Icons.vpnIcon),
+                                                    handler: { print("Нажата ячейка VPN") }))
+        ]))
         
         models.append(Section(options: [
             .settingsCell(model: SettingsOption(name: Strings.notificationsCellTitle,
-                                                icon: UIImage(named: Icons.notificationsIcon) ?? UIImage(),
+                                                icon: UIImage(named: Icons.notificationsIcon),
                                                 handler: { print("Нажата ячейка Уведомления") })),
             .settingsCell(model: SettingsOption(name: Strings.soundsCellTitle,
-                                                icon: UIImage(named: Icons.soundsIcon) ?? UIImage(),
+                                                icon: UIImage(named: Icons.soundsIcon),
                                                 handler: { print("Нажата ячейка Звуки") })),
             .settingsCell(model: SettingsOption(name: Strings.focusCellTitle,
-                                                icon: UIImage(named: Icons.focusIcon) ?? UIImage(),
+                                                icon: UIImage(named: Icons.focusIcon),
                                                 handler: { print("Нажата ячейка Фокусирование") })),
             .settingsCell(model: SettingsOption(name: Strings.screenTimeCellTitle,
-                                                icon: UIImage(named: Icons.screenTimeIcon) ?? UIImage(),
+                                                icon: UIImage(named: Icons.screenTimeIcon),
                                                 handler: { print("Нажата ячейка Экранное время") }))
         ]))
         
         models.append(Section(options: [
-            .settingsCell(model: SettingsOption(name: Strings.mainCellTitle,
-                                                icon: UIImage(named: Icons.mainIcon) ?? UIImage(),
-                                                handler: { print("Нажата ячейка Основные") })),
+            .additionalLabelCell(model: SettingsAdditionalLabelOption(name: Strings.mainCellTitle,
+                                                                      icon: UIImage(named: Icons.mainIcon),
+                                                                      informer: nil,
+                                                                      handler: { print("Нажата ячейка Основные") },
+                                                                      indicatorBadge: "1",
+                                                                      isAdditionalLabelDefault: false)),
             .settingsCell(model: SettingsOption(name: Strings.commandCenterCellTitle,
-                                                icon: UIImage(named: Icons.commandCenterIcon) ?? UIImage(),
+                                                icon: UIImage(named: Icons.commandCenterIcon),
                                                 handler: { print("Нажата ячейка Пункт управления") })),
             .settingsCell(model: SettingsOption(name: Strings.brightnessCellTitle,
-                                                icon: UIImage(named: Icons.brightnessIcon) ?? UIImage(),
+                                                icon: UIImage(named: Icons.brightnessIcon),
                                                 handler: { print("Нажата ячейка Экран и яркость") })),
             .settingsCell(model: SettingsOption(name: Strings.screenHomeCellTitle,
-                                                icon: UIImage(named: Icons.screenHomeIcon) ?? UIImage(),
+                                                icon: UIImage(named: Icons.screenHomeIcon),
                                                 handler: { print("Нажата ячейка Экран «Домой»") })),
             .settingsCell(model: SettingsOption(name: Strings.universalAccessCellTitle,
-                                                icon: UIImage(named: Icons.universalAccessIcon) ?? UIImage(),
+                                                icon: UIImage(named: Icons.universalAccessIcon),
                                                 handler: { print("Нажата ячейка Универсальный доступ") })),
             .settingsCell(model: SettingsOption(name: Strings.wallpaperCellTitle,
-                                                icon: UIImage(named: Icons.wallpaperIcon) ?? UIImage(),
+                                                icon: UIImage(named: Icons.wallpaperIcon),
                                                 handler: { print("Нажата ячейка Обои") })),
             .settingsCell(model: SettingsOption(name: Strings.siriCellTitle,
-                                                icon: UIImage(named: Icons.siriIcon) ?? UIImage(),
+                                                icon: UIImage(named: Icons.siriIcon),
                                                 handler: { print("Нажата ячейка Siri и Поиск") })),
             .settingsCell(model: SettingsOption(name: Strings.faceIDCellTitle,
-                                                icon: UIImage(named: Icons.faceIDIcon) ?? UIImage(),
+                                                icon: UIImage(named: Icons.faceIDIcon),
                                                 handler: { print("Нажата ячейка Face ID и код-пароль") })),
             .settingsCell(model: SettingsOption(name: Strings.sosCellTitle,
-                                                icon: UIImage(named: Icons.sosICon) ?? UIImage(),
+                                                icon: UIImage(named: Icons.sosICon),
                                                 handler: { print("Нажата ячейка Экстренный вызов -- SOS") })),
             .settingsCell(model: SettingsOption(name: Strings.contactCellTitle,
-                                                icon: UIImage(named: Icons.contactIcon) ?? UIImage(),
+                                                icon: UIImage(named: Icons.contactIcon),
                                                 handler: { print("Нажата ячейка Уведомления о контакте") })),
             .settingsCell(model: SettingsOption(name: Strings.batteryCellTitle,
-                                                icon: UIImage(named: Icons.batteryIcon) ?? UIImage(),
+                                                icon: UIImage(named: Icons.batteryIcon),
                                                 handler: { print("Нажата ячейка Аккумулятор") })),
             .settingsCell(model: SettingsOption(name: Strings.confidentialityCellTitle,
-                                                icon: UIImage(named: Icons.confidentialityIcon) ?? UIImage(),
+                                                icon: UIImage(named: Icons.confidentialityIcon),
                                                 handler: { print("Нажата ячейка Конфиденциальность") })),
         ]))
         
         models.append(Section(options: [
             .settingsCell(model: SettingsOption(name: Strings.appstoreCellTitle,
-                                                icon: UIImage(named: Icons.appstoreIcon) ?? UIImage(),
+                                                icon: UIImage(named: Icons.appstoreIcon),
                                                 handler: { print("Нажата ячейка App Store") })),
             .settingsCell(model: SettingsOption(name: Strings.walletCellTitle,
-                                                icon: UIImage(named: Icons.walletIcon) ?? UIImage(),
+                                                icon: UIImage(named: Icons.walletIcon),
                                                 handler: { print("Нажата ячейка Wallet и Apple Pay") }))
         ]))
         
         models.append(Section(options: [
             .settingsCell(model: SettingsOption(name: Strings.passwordsCellTitle,
-                                                icon: UIImage(named: Icons.passwordsIcon) ?? UIImage(),
+                                                icon: UIImage(named: Icons.passwordsIcon),
                                                 handler: { print("Нажата ячейка Пароли") })),
             .settingsCell(model: SettingsOption(name: Strings.mailCellTitle,
-                                                icon: UIImage(named: Icons.mailIcon) ?? UIImage(),
+                                                icon: UIImage(named: Icons.mailIcon),
                                                 handler: { print("Нажата ячейка Почта") })),
             .settingsCell(model: SettingsOption(name: Strings.contactsCellTitle,
-                                                icon: UIImage(named: Icons.contactsIcon) ?? UIImage(),
+                                                icon: UIImage(named: Icons.contactsIcon),
                                                 handler: { print("Нажата ячейка Контакты") })),
             .settingsCell(model: SettingsOption(name: Strings.calendarCellTitle,
-                                                icon: UIImage(named: Icons.calendarIcon) ?? UIImage(),
+                                                icon: UIImage(named: Icons.calendarIcon),
                                                 handler: { print("Нажата ячейка Календарь") })),
             .settingsCell(model: SettingsOption(name: Strings.notesCellTitle,
-                                                icon: UIImage(named: Icons.notesIcon) ?? UIImage(),
+                                                icon: UIImage(named: Icons.notesIcon),
                                                 handler: { print("Нажата ячейка Заметки") })),
             .settingsCell(model: SettingsOption(name: Strings.remindersCellTitle,
-                                                icon: UIImage(named: Icons.remindersIcon) ?? UIImage(),
+                                                icon: UIImage(named: Icons.remindersIcon),
                                                 handler: { print("Нажата ячейка Напоминания") })),
             .settingsCell(model: SettingsOption(name: Strings.recorderCellTitle,
-                                                icon: UIImage(named: Icons.recorderIcon) ?? UIImage(),
+                                                icon: UIImage(named: Icons.recorderIcon),
                                                 handler: { print("Нажата ячейка Диктофон") })),
             .settingsCell(model: SettingsOption(name: Strings.phoneCellTitle,
-                                                icon: UIImage(named: Icons.phoneIcon) ?? UIImage(),
+                                                icon: UIImage(named: Icons.phoneIcon),
                                                 handler: { print("Нажата ячейка Телефон") })),
             .settingsCell(model: SettingsOption(name: Strings.messageCellTitle,
-                                                icon: UIImage(named: Icons.messageIcon) ?? UIImage(),
+                                                icon: UIImage(named: Icons.messageIcon),
                                                 handler: { print("Нажата ячейка Сообщения") })),
             .settingsCell(model: SettingsOption(name: Strings.faceTimeCellTitle,
-                                                icon: UIImage(named: Icons.faceTimeIcon) ?? UIImage(),
+                                                icon: UIImage(named: Icons.faceTimeIcon),
                                                 handler: { print("Нажата ячейка FaceTime") })),
             .settingsCell(model: SettingsOption(name: Strings.safariCellTitle,
-                                                icon: UIImage(named: Icons.safariIcon) ?? UIImage(),
+                                                icon: UIImage(named: Icons.safariIcon),
                                                 handler: { print("Нажата ячейка Safari") })),
             .settingsCell(model: SettingsOption(name: Strings.stockCellTitle,
-                                                icon: UIImage(named: Icons.stockIcon) ?? UIImage(),
+                                                icon: UIImage(named: Icons.stockIcon),
                                                 handler: { print("Нажата ячейка Акции") })),
             .settingsCell(model: SettingsOption(name: Strings.weatherCellTitle,
-                                                icon: UIImage(named: Icons.weatherIcon) ?? UIImage(),
+                                                icon: UIImage(named: Icons.weatherIcon),
                                                 handler: { print("Нажата ячейка Погода") })),
             .settingsCell(model: SettingsOption(name: Strings.translateCellTitle,
-                                                icon: UIImage(named: Icons.translateIcon) ?? UIImage(),
+                                                icon: UIImage(named: Icons.translateIcon),
                                                 handler: { print("Нажата ячейка Перевод") })),
             .settingsCell(model: SettingsOption(name: Strings.mapsCellTitle,
-                                                icon: UIImage(named: Icons.mapsIcon) ?? UIImage(),
+                                                icon: UIImage(named: Icons.mapsIcon),
                                                 handler: { print("Нажата ячейка Карты") })),
             .settingsCell(model: SettingsOption(name: Strings.compassCellTitle,
-                                                icon: UIImage(named: Icons.compassIcon) ?? UIImage(),
+                                                icon: UIImage(named: Icons.compassIcon),
                                                 handler: { print("Нажата ячейка Компас") })),
             .settingsCell(model: SettingsOption(name: Strings.rouletteCellTitle,
-                                                icon: UIImage(named: Icons.rouletteIcon) ?? UIImage(),
+                                                icon: UIImage(named: Icons.rouletteIcon),
                                                 handler: { print("Нажата ячейка Рулетка") })),
             .settingsCell(model: SettingsOption(name: Strings.quickCommandsCellTitle,
-                                                icon: UIImage(named: Icons.quickCommandsIcon) ?? UIImage(),
+                                                icon: UIImage(named: Icons.quickCommandsIcon),
                                                 handler: { print("Нажата ячейка Быстрые команды") })),
             .settingsCell(model: SettingsOption(name: Strings.healtCellTitle,
-                                                icon: UIImage(named: Icons.healthIcon) ?? UIImage(),
+                                                icon: UIImage(named: Icons.healthIcon),
                                                 handler: { print("Нажата ячейка Здоровье") })),
         ]))
         
         models.append(Section(options: [
             .settingsCell(model: SettingsOption(name: Strings.musicCellTitle,
-                                                icon: UIImage(named: Icons.musicIcon) ?? UIImage(),
+                                                icon: UIImage(named: Icons.musicIcon),
                                                 handler: { print("Нажата ячейка Музыка") })),
             .settingsCell(model: SettingsOption(name: Strings.tvCellTitle,
-                                                icon: UIImage(named: Icons.tvIcon) ?? UIImage(),
+                                                icon: UIImage(named: Icons.tvIcon),
                                                 handler: { print("Нажата ячейка TV") })),
             .settingsCell(model: SettingsOption(name: Strings.photoCellTitle,
-                                                icon: UIImage(named: Icons.photoIcon) ?? UIImage(),
+                                                icon: UIImage(named: Icons.photoIcon),
                                                 handler: { print("Нажата ячейка Фото") })),
             .settingsCell(model: SettingsOption(name: Strings.cameraCellTitle,
-                                                icon: UIImage(named: Icons.cameraIcon) ?? UIImage(),
+                                                icon: UIImage(named: Icons.cameraIcon),
                                                 handler: { print("Нажата ячейка Камера") })),
             .settingsCell(model: SettingsOption(name: Strings.bookCellTitle,
-                                                icon: UIImage(named: Icons.bookIcon) ?? UIImage(),
+                                                icon: UIImage(named: Icons.bookIcon),
                                                 handler: { print("Нажата ячейка Книги") })),
             .settingsCell(model: SettingsOption(name: Strings.podcastsCellTitle,
-                                                icon: UIImage(named: Icons.podcastsIcon) ?? UIImage(),
+                                                icon: UIImage(named: Icons.podcastsIcon),
                                                 handler: { print("Нажата ячейка Подкасты") })),
             .settingsCell(model: SettingsOption(name: Strings.gameCenterCellTitle,
-                                                icon: UIImage(named: Icons.gameCenterIcon) ?? UIImage(),
-                                                handler: { print("Нажата ячейка Game Center") }))]))
+                                                icon: UIImage(named: Icons.gameCenterIcon),
+                                                handler: { print("Нажата ячейка Game Center") } ))
+        ]))
     }
     
     //Количество секций
@@ -320,18 +329,18 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             }
             cell.configure(with: model)
             return cell
-        case .airplaneCell(let model):
+        case .switchCell(let model):
             guard let cell = tableView.dequeueReusableCell(
-                withIdentifier: AirplaneTableViewCell.identifier,
-                for: indexPath) as? AirplaneTableViewCell else {
+                withIdentifier: SwitchTableViewCell.identifier,
+                for: indexPath) as? SwitchTableViewCell else {
                 return UITableViewCell()
             }
             cell.configure(with: model)
             return cell
-        case .networkCell(let model):
+        case .additionalLabelCell(let model):
             guard let cell = tableView.dequeueReusableCell(
-                withIdentifier: NetworkTableViewCell.identifier,
-                for: indexPath) as? NetworkTableViewCell else {
+                withIdentifier: AdditionalLabelTableViewCell.identifier,
+                for: indexPath) as? AdditionalLabelTableViewCell else {
                 return UITableViewCell()
             }
             cell.configure(with: model)
@@ -355,13 +364,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         switch type {
         case .profileCell(let model):
             model.handler()
-        case .airplaneCell(let model):
-            model.handler()
-        case .networkCell(let model):
-            model.handler()
         case .settingsCell(let model):
             model.handler()
+        case .switchCell(let model):
+            model.handler()
+        case .additionalLabelCell(let model):
+            model.handler()
         }
+        
     }
 }
 

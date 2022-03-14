@@ -13,8 +13,8 @@
 		04E9AB4227CD0AEC00EB5F1F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04E9AB4127CD0AEC00EB5F1F /* Assets.xcassets */; };
 		04E9AB4527CD0AEC00EB5F1F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04E9AB4327CD0AEC00EB5F1F /* LaunchScreen.storyboard */; };
 		04E9AB4D27CD101C00EB5F1F /* ProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E9AB4C27CD101C00EB5F1F /* ProfileTableViewCell.swift */; };
-		04E9AB4F27CD12B700EB5F1F /* AirplaneTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E9AB4E27CD12B700EB5F1F /* AirplaneTableViewCell.swift */; };
-		04E9AB5127CD145200EB5F1F /* NetworkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E9AB5027CD145200EB5F1F /* NetworkTableViewCell.swift */; };
+		04E9AB4F27CD12B700EB5F1F /* SwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E9AB4E27CD12B700EB5F1F /* SwitchTableViewCell.swift */; };
+		04E9AB5127CD145200EB5F1F /* AdditionalLabelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E9AB5027CD145200EB5F1F /* AdditionalLabelTableViewCell.swift */; };
 		04E9AB5327CD152C00EB5F1F /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E9AB5227CD152C00EB5F1F /* SettingsTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -27,8 +27,8 @@
 		04E9AB4427CD0AEC00EB5F1F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		04E9AB4627CD0AEC00EB5F1F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		04E9AB4C27CD101C00EB5F1F /* ProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewCell.swift; sourceTree = "<group>"; };
-		04E9AB4E27CD12B700EB5F1F /* AirplaneTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirplaneTableViewCell.swift; sourceTree = "<group>"; };
-		04E9AB5027CD145200EB5F1F /* NetworkTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkTableViewCell.swift; sourceTree = "<group>"; };
+		04E9AB4E27CD12B700EB5F1F /* SwitchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchTableViewCell.swift; sourceTree = "<group>"; };
+		04E9AB5027CD145200EB5F1F /* AdditionalLabelTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdditionalLabelTableViewCell.swift; sourceTree = "<group>"; };
 		04E9AB5227CD152C00EB5F1F /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -65,8 +65,8 @@
 				04E9AB3827CD0AEA00EB5F1F /* AppDelegate.swift */,
 				04E9AB3C27CD0AEA00EB5F1F /* ViewController.swift */,
 				04E9AB4C27CD101C00EB5F1F /* ProfileTableViewCell.swift */,
-				04E9AB4E27CD12B700EB5F1F /* AirplaneTableViewCell.swift */,
-				04E9AB5027CD145200EB5F1F /* NetworkTableViewCell.swift */,
+				04E9AB4E27CD12B700EB5F1F /* SwitchTableViewCell.swift */,
+				04E9AB5027CD145200EB5F1F /* AdditionalLabelTableViewCell.swift */,
 				04E9AB5227CD152C00EB5F1F /* SettingsTableViewCell.swift */,
 				04E9AB3E27CD0AEA00EB5F1F /* Main.storyboard */,
 				04E9AB4127CD0AEC00EB5F1F /* Assets.xcassets */,
@@ -148,11 +148,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				04E9AB4D27CD101C00EB5F1F /* ProfileTableViewCell.swift in Sources */,
-				04E9AB4F27CD12B700EB5F1F /* AirplaneTableViewCell.swift in Sources */,
+				04E9AB4F27CD12B700EB5F1F /* SwitchTableViewCell.swift in Sources */,
 				04E9AB5327CD152C00EB5F1F /* SettingsTableViewCell.swift in Sources */,
 				04E9AB3D27CD0AEA00EB5F1F /* ViewController.swift in Sources */,
 				04E9AB3927CD0AEA00EB5F1F /* AppDelegate.swift in Sources */,
-				04E9AB5127CD145200EB5F1F /* NetworkTableViewCell.swift in Sources */,
+				04E9AB5127CD145200EB5F1F /* AdditionalLabelTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

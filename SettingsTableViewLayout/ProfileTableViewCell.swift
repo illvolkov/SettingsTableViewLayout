@@ -11,7 +11,7 @@ import UIKit
 struct SettingsProfileOption: Settings {
     let name: String
     let detailedTitle: String
-    let profileImage: UIImage
+    let profileImage: UIImage?
     let handler: (() -> Void)
 }
 
@@ -46,7 +46,7 @@ class ProfileTableViewCell: UITableViewCell {
         profileImage.contentMode = .scaleAspectFit
         profileImage.clipsToBounds = true
         profileImage.layer.masksToBounds = true
-        profileImage.layer.cornerRadius = Sizes.profileImageCornerRadius
+        profileImage.layer.cornerRadius = contentView.frame.size.width * Sizes.profileImageCornerRadiusMultiplier
         profileImage.backgroundColor = .white
         
         return profileImage
@@ -68,9 +68,9 @@ class ProfileTableViewCell: UITableViewCell {
                                           constant: Offsets.profileImageTopLeftOffsets15).isActive = true
         profileImage.leftAnchor.constraint(equalTo: contentView.leftAnchor,
                                            constant: Offsets.profileImageTopLeftOffsets15).isActive = true
-        profileImage.heightAnchor.constraint(equalTo: contentView.widthAnchor,
+        profileImage.widthAnchor.constraint(equalTo: contentView.widthAnchor,
                                              multiplier: Sizes.profileImageWidthMultiplier).isActive = true
-        profileImage.widthAnchor.constraint(equalTo: profileImage.heightAnchor).isActive = true
+        profileImage.heightAnchor.constraint(equalTo: profileImage.widthAnchor).isActive = true
         
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         nameLabel.topAnchor.constraint(equalTo: contentView.topAnchor,
@@ -87,6 +87,8 @@ class ProfileTableViewCell: UITableViewCell {
                                             constant: Offsets.detailedLabelLeftOffset).isActive = true
         detailedLabel.heightAnchor.constraint(equalTo: contentView.widthAnchor,
                                               multiplier: Sizes.detailedLabelHeightMultiplier).isActive = true
+        detailedLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor,
+                                             multiplier: Sizes.detailedLabelWidthMultiplier).isActive = true
     }
     
     required init?(coder: NSCoder) {
@@ -110,11 +112,12 @@ extension ProfileTableViewCell {
     enum Sizes {
         static let nameLabelFontSize: CGFloat = 24
         static let detailedLabelFontSize: CGFloat = 12.5
-        static let profileImageCornerRadius: CGFloat = 32.5
         static let contentViewHeight: CGFloat = 95
         static let profileImageWidthMultiplier: CGFloat = 0.2
         static let nameLabelHeightMultiplier: CGFloat = 0.08
         static let detailedLabelHeightMultiplier: CGFloat = 0.05
+        static let detailedLabelWidthMultiplier: CGFloat = 0.67
+        static let profileImageCornerRadiusMultiplier: CGFloat = 0.0935
     }
     
     enum Offsets {

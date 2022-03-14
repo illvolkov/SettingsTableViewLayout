@@ -9,7 +9,7 @@ import UIKit
 
 struct SettingsOption: Settings {
     let name: String
-    let icon: UIImage
+    let icon: UIImage?
     let handler: (() -> Void)
 }
 

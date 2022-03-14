@@ -7,14 +7,14 @@
 
 import UIKit
 
-struct SettingsAirplaneOption: Settings {
+struct SettingsSwitchOption: Settings {
     let name: String
-    let icon: UIImage
+    let icon: UIImage?
     let handler: (() -> Void)
 }
 
-class AirplaneTableViewCell: UITableViewCell {
-    static let identifier = Strings.airplaneCellIdentifier
+class SwitchTableViewCell: UITableViewCell {
+    static let identifier = Strings.switchCellIdentifier
     
     private lazy var nameLabel: UILabel = {
         let nameLabel = UILabel()
@@ -36,7 +36,7 @@ class AirplaneTableViewCell: UITableViewCell {
     }()
     
     //Селектор переключения режима
-    private lazy var switchAirplane: UISwitch = {
+    private lazy var switchForCell: UISwitch = {
         let switchAirplane = UISwitch()
         return switchAirplane
     }()
@@ -46,7 +46,7 @@ class AirplaneTableViewCell: UITableViewCell {
         
         contentView.addSubview(nameLabel)
         contentView.addSubview(iconAirplane)
-        contentView.addSubview(switchAirplane)
+        contentView.addSubview(switchForCell)
         
         iconAirplane.translatesAutoresizingMaskIntoConstraints = false
         iconAirplane.topAnchor.constraint(equalTo: contentView.topAnchor,
@@ -65,10 +65,10 @@ class AirplaneTableViewCell: UITableViewCell {
         nameLabel.heightAnchor.constraint(equalTo: contentView.widthAnchor,
                                           multiplier: Sizes.nameLabelHeightMultiplier).isActive = true
         
-        switchAirplane.translatesAutoresizingMaskIntoConstraints = false
-        switchAirplane.topAnchor.constraint(equalTo: contentView.topAnchor,
+        switchForCell.translatesAutoresizingMaskIntoConstraints = false
+        switchForCell.topAnchor.constraint(equalTo: contentView.topAnchor,
                                             constant: Offsets.switchAirplaneTopOffset).isActive = true
-        switchAirplane.rightAnchor.constraint(equalTo: contentView.rightAnchor,
+        switchForCell.rightAnchor.constraint(equalTo: contentView.rightAnchor,
                                               constant: Offsets.switchAirplaneRightOffset).isActive = true
     }
     
@@ -76,21 +76,21 @@ class AirplaneTableViewCell: UITableViewCell {
         super.init(coder: coder)
     }
     
-    func configure(with model: SettingsAirplaneOption) {
+    func configure(with model: SettingsSwitchOption) {
         nameLabel.text = model.name
         iconAirplane.image = model.icon
     }
 }
 
-extension AirplaneTableViewCell {
+extension SwitchTableViewCell {
     enum Strings {
-        static let airplaneCellIdentifier: String = "AirplaneTableViewCell"
+        static let switchCellIdentifier: String = "SwitchTableViewCell"
     }
     
     enum Sizes {
         static let nameLabelFontSize: CGFloat = 17
         static let iconAirplaneWeightMultiplier: CGFloat = 0.08
-        static let nameLabelHeightMultiplier: CGFloat = 0.06
+        static let nameLabelHeightMultiplier: CGFloat = 0.053
     }
     
     enum Offsets {
